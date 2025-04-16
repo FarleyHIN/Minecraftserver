@@ -7,9 +7,35 @@ document.getElementById("startServerBtn").addEventListener("click", () => {
   statusSpan.textContent = "Starting...";
   statusSpan.style.color = "orange";
 
-  // Simulate server startup delay
-  setTimeout(() => {
-    statusSpan.textContent = `Online (${edition} ${version})`;
-    statusSpan.style.color = "green";
-  }, 2000);
-});￼Enter
+  // Send POST request to backend
+  fetch('/start-server', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      edition: edition,
+      version: version
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Server response wasn't OK");
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.status === "started") {
+      statusSpan.textContent = `Online (${data.edition} ${data.version})`;
+      statusSpan.style.color = "green";
+    } else {
+      statusSpan.textContent = "Error: Server didn't start";
+      statusSpan.style.color = "red";
+    }
+  })
+  .catch(error => {
+    console.error("Error starting server:", error);
+    statusSpan.textContent = "Failed to start";
+    statusSpan.style.color = "red";
+  });
+});
