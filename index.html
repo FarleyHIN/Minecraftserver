@@ -14,8 +14,25 @@
 
   <main>
     <section class="server-status">
-      <h2>Server Status: <span id="status">Offline</span></h2>
-      <button onclick="startServer()">Start Server</button>
+      <h2>Server Status: <span id="status">Offline</span></h2>      
+<!-- Server Edition and Version Selection -->
+<div style="margin-bottom: 20px;">
+  <label for="edition">Edition:</label>
+  <select id="edition">
+    <option value="bedrock">Bedrock</option>
+    <option value="java">Java</option>
+  </select>
+
+  <label for="version">Version:</label>
+  <select id="version">
+    <option value="1.21.62">1.21.62</option>
+    <option value="1.20.80">1.20.80</option>
+    <option value="1.19.83">1.19.83</option>
+  </select>
+</div>
+
+<!-- Start Button -->
+<button id="startServerBtn">Start Server</button>
     </section>
   </main>
 
